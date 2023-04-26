@@ -1,0 +1,160 @@
+v<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Caixa Eletrônico</title>
+
+	<script>
+		
+		var saldo = 100.5; 
+		var senha = 3589;
+		var nome = prompt("Informe seu nome:");
+		alert("Olá " + nome + " é um prazer ter você por aqui!"); // A variavel nome sera preenchida de acordo com o nome que colocar
+
+
+		function inicio() {
+			
+
+			var escolha = parseInt(prompt('Selecione uma opção 1.)Saldo 2.)Extrato 3.)Saque  4.)Depósito 5.)Tranferência 6.)Sair'));
+
+			switch(escolha){
+				case 1:
+					ver_saldo();
+				break;
+				case 2:
+					ver_extrato();
+				break;
+				case 3:
+					fazer_saque();			
+				break;
+				case 4:
+					fazer_deposito();
+				break;
+				case 5:
+					fazer_transferencia();
+				break;
+				case 6:
+					sair();
+				break;
+				default:
+					erro();
+				break;
+			}
+		}
+
+		function ver_saldo() {
+			var ler_senha = prompt("Informe sua senha:");
+
+			if(ler_senha == senha){
+				alert('Seu saldo atual é: ' + saldo);
+				inicio();
+			}else{
+				alert("Senha incorreta"); // Informe a senha 3589, caso contrario, vai dar senha incorreta
+				inicio();
+			}
+		}
+
+		function fazer_deposito() {
+			var deposito = parseFloat(prompt('Qual o valor para depósito?'));
+			
+			
+			if (isNaN(deposito) || deposito === ''){
+				alert('Por favor, informe um número.');
+				fazer_deposito();
+			} 
+			else if(deposito <= 0){
+				alert('Operação não autorizada');
+				fazer_deposito();
+			}
+			else {
+				saldo += deposito;
+				ver_saldo();
+			}
+		}
+
+		function fazer_saque() {
+			var ler_senha = prompt("Informe sua senha:");
+
+			if(ler_senha == senha){
+
+				var saque = parseFloat(prompt('Qual o valor para saque?'));
+
+				if(saque > saldo || saque <=0 || isNaN(saque) || saque === ''){
+					alert('Operação não autorizada');
+					fazer_saque();
+				}
+				else{
+					saldo -= saque;
+					ver_saldo();
+				}
+			}else{
+				alert("Senha incorreta");
+				inicio();
+			}
+		}
+
+		function fazer_transferencia(){			
+			var ler_senha = prompt("Informe sua senha:");
+			if(ler_senha == senha){
+
+				var numeroConta = parseInt(prompt('Informe o número da conta:'));
+				while(isNaN(numeroConta) || numeroConta === ''){
+					alert('Por favor, informe um número.');
+					numeroConta = parseInt(prompt('Informe o número da conta:'));
+				}
+
+				var transferencia = parseFloat(prompt('Qual o valor da tranferência?'));
+				while(isNaN(transferencia) || transferencia > saldo || transferencia <= 0){
+					alert('Operação não autorizada');
+					transferencia = parseFloat(prompt('Qual o valor da tranferência?'));
+				}
+
+				saldo -= transferencia;
+				alert('Transferência realizada com sucesso!');
+				alert('Seu saldo atual é: ' + saldo);
+				inicio();
+			}
+			else{
+				alert("Senha incorreta");
+				inicio();
+			}			
+		}
+
+		function ver_extrato(){
+			var ler_senha = prompt("Informe sua senha:");
+
+			if(ler_senha == senha){
+				let extrato = 'EXTRATO\n Steam\n Produto: Elden Ring\n Valor Total: R$249,90\n Data: 13/03/2022\n -------------------\n Nike\n Produto: Tênis Nike Why So Sad? x Dunk Low SB\n Valor Total: R$800,00\n Data: 04/11/2022\n -------------------\n Depósito\n Banco Itau\n Para: Maria Cristina\n Valor: R$300,00'; 
+				alert(extrato);
+				inicio();
+			}
+			else{
+				alert("Senha incorreta");
+				inicio();
+			}
+		}
+		
+		function erro() {
+			alert('Por favor, informe um número entre 1 e 6.');
+			inicio();
+		}
+
+		function sair() {
+			var confirma = confirm('Você deseja sair?');
+			if (confirma) {
+				window.close();
+				alert(nome + ", Foi um prazer ter você por aqui!");
+			} else {
+				inicio();
+			}
+		}
+
+		inicio();
+	</script>
+</head>
+<body>
+</body>
+</html>
